@@ -3,20 +3,12 @@ import mongoose from "mongoose";
 const userCollection = "users";
 
 const userSchema = new mongoose.Schema({
-  first_name: String,
-  last_name: String,
-  email: String,
+  firstName: String,
+  lastName: String,
+  email: { type: String, unique: true },
   password: String,
-  email: {
-    type: String,
-    unique: true,
-  },
-  age: Number,
-  role: { 
-    type: String,
-    default: "user",
-  },
-  cart: { type: mongoose.Schema.Types.ObjectId, ref: "cart" },
+  account: { type: mongoose.Schema.Types.ObjectId, ref: "accounts" },
+  movements: { type: [{ movement: { type: mongoose.Schema.Types.ObjectId, ref: "movements" } }] },
 });
 
 export const userModel = mongoose.model(userCollection, userSchema);
